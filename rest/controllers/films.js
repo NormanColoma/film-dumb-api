@@ -1,8 +1,10 @@
 const SeeFilmInfo = require('../../use-case/see-film-info');
+const DownloadFilm = require('../../use-case/download-film');
 
 class FilmController {
     constructor() {
         this._seeFilmInfo = new SeeFilmInfo();
+        this._downloadFilm = new DownloadFilm();
     }
 
     getFilmInfo(filmId) {
@@ -10,7 +12,7 @@ class FilmController {
     }
 
     downloadFilm(filmId) {
-        return {info: `Film ${req.params.id} was downloaded correctly`};
+        return this._downloadFilm.execute(filmId);
     }
 }
 

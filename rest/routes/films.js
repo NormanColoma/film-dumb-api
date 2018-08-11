@@ -5,12 +5,17 @@ const FilmController = require('../controllers/films');
 const filmController = new FilmController();
 
 router.get('/films/:id', (req, res) => {
-    filmController.getFilmInfo(req.params.id)
+    const { id: filmId } = params;
+
+    filmController.getFilmInfo(filmId)
         .then(data => res.send(data));
 });
 
-router.get('/films/:id/downloads', () => {
-    res.send();
+router.get('/films/:id/downloads', ({ params }, res) => {
+    const { id: filmId } = params;
+
+    filmController.downloadFilm(filmId)
+        .then(data => res.send(data));
 });
 
 module.exports = router;
