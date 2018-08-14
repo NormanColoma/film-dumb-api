@@ -1,4 +1,4 @@
-const MongoFilmRepository = require('../../persitence/mongo-film-repository');
+const MongoFilmRepository = require('./mongo-film-repository');
 const Film = require('../../domain/film');
 const DonwlodableFilm = require('../../domain/downlodable-film');
 

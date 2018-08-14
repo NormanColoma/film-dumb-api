@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
-const { connection_uri, name } = require('../config').database;
+const { connection_uri, name } = require('../../config').database;
 
 class DatabaseHandler {
     static getInstance() {

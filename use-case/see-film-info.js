@@ -1,4 +1,4 @@
-const FilmRepository = require('../domain/repository/films-repository');
+const FilmRepository = require('../adapter/persitence/films-repository');
 
 class SeeFilmInfo {
     constructor() {

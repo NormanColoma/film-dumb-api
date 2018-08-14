@@ -1,4 +1,4 @@
-const database = require('../database/database-handler');
+const database = require('./database-handler');
 const { ObjectId } = require('mongodb');
 
 class MongoFilmRepository {
