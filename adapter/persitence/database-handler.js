@@ -3,18 +3,23 @@ const { connection_uri, name } = require('../../config').database;
 
 class DatabaseHandler {
     static getInstance() {
-        if (!this.instance) {
+        if (!this._instance) {
             DatabaseHandler.connect();
         }
-        return this.instance; 
+        return this._instance; 
     }
 
     static connect(){
         MongoClient.connect(connection_uri, { useNewUrlParser: true })
             .then((client) => {
-                console.log('Database connected...')
-                this.instance = client.db(name);
+                console.log('Database connected...');
+                this._client = client;
+                this._instance = client.db(name);
         });
+    }
+
+    static close() {
+        this._client.close();
     }
 }
 

@@ -17,9 +17,14 @@ class RabbitmqHandler {
                 ch.assertExchange(exchange, exchange_type, { durable: false });
 
                 this._instance = ch;
+                this._connection = conn;
                 console.log('Rabbitmq connected...');
             });
         });
+    }
+
+    static close() {
+        this._connection.close();
     }
 }
 

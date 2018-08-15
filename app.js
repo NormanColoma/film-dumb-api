@@ -14,7 +14,15 @@ rabbitmq.connect();
 app.use(filmsRoutes);
 app.listen(port, () => console.log('App started!'));
 
-process.on('SIGINT', () => {
-    console.log('exiting...')
+const onProcessKilled = () => {
+    console.log('closing connections...');
+    database.close();
+    rabbitmq.close();
     process.exit();
-});
+}
+
+process.on('exit', () => onProcessKilled());
+process.on('SIGINT', () => process.exit(137));
+process.on('SIGTERM', () => process.exit(137));
+process.on('SIGUSR1', () => process.exit(2));
+process.on('SIGUSR2', () => process.exit(2));
