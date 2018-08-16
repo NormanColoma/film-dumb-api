@@ -6,7 +6,7 @@ class FilmViewEventEmitterService {
         const exchange = 'film.analytics.events';
         const key = 'film.view';
 
-        channel.publish(exchange, key, Buffer.from(`view film ${filmId}`));
+        channel.publish(exchange, key, Buffer.from(filmId));
     }
 }
 
