@@ -7,8 +7,6 @@ class FilmDownloadEventEmitterService {
         const key = 'film.download';
 
         channel.publish(exchange, key, Buffer.from(`${filmId}`));
-
-        console.log(`film${filmId} was downloaded`);
     }
 }
 
