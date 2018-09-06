@@ -10,6 +10,10 @@ class RabbitmqHandler {
     }
     static connect() {
         amqp.connect('amqp://localhost', (err, conn) => {
+            if (err) {
+                console.info('There was an error while trying to connect to rabbitmq: ', err);
+                return;
+            }
             conn.createChannel((err, ch) => {
                 const exchange = 'film.analytics.events';
                 const exchange_type = 'direct';
@@ -24,7 +28,9 @@ class RabbitmqHandler {
     }
 
     static close() {
-        this._connection.close();
+        if (this._connection) {
+            this._connection.close();
+        }
     }
 }
 

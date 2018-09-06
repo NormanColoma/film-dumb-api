@@ -15,11 +15,14 @@ class DatabaseHandler {
                 console.log('Database connected...');
                 this._client = client;
                 this._instance = client.db(name);
-        });
+            })
+            .catch(err => console.info('There was an error while trying to connect to MongoDB', err));
     }
 
     static close() {
-        this._client.close();
+        if (this._client) {
+            this._client.close();
+        }
     }
 }
 
