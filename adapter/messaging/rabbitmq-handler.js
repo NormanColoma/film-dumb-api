@@ -8,6 +8,7 @@ class RabbitmqHandler {
         }
         return this._instance;
     }
+    
     static connect() {
         amqp.connect('amqp://localhost', (err, conn) => {
             if (err) {

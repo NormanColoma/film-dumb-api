@@ -12,17 +12,21 @@ database.connect();
 rabbitmq.connect();
 
 app.use(filmsRoutes);
-app.listen(port, () => console.log('App started!'));
+const server = app.listen(port, () => console.log('App started!'));
 
-const onProcessKilled = () => {
-    console.log('closing connections...');
-    database.close();
-    rabbitmq.close();
-    process.exit();
+const closeConnectionsAndExit = () => {
+    console.log('Server closed correctly!! Closing connections...');
+    database.close()
+        .then(() => rabbitmq.close());
+    process.exit(0);
 }
 
-process.on('exit', () => onProcessKilled());
-process.on('SIGINT', () => process.exit(137));
-process.on('SIGTERM', () => process.exit(137));
-process.on('SIGUSR1', () => process.exit(2));
-process.on('SIGUSR2', () => process.exit(2));
+const onProcessKilled = () => {
+    console.log('Trying to close server...')
+    server.close(() => closeConnectionsAndExit());
+}
+
+process.on('SIGINT', () => onProcessKilled());
+process.on('SIGTERM', () => onProcessKilled());
+process.on('SIGUSR1', () => onProcessKilled());
+process.on('SIGUSR2', () => onProcessKilled());
